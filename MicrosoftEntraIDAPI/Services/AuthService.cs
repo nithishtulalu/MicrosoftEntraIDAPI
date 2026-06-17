@@ -44,7 +44,7 @@ namespace MicrosoftEntraIDAPI.Services
         public async Task<AuthResponseDto> Login(LoginDto dto)
         {
             var user = await _authRepository.GetByEmailAsync(dto.Email);
-            if (user != null)
+            if (user == null)
             {
                 throw new Exception("invalid Credentials");
             }
