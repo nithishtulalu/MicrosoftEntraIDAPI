@@ -24,15 +24,10 @@ namespace MicrosoftEntraIDAPI.Controllers
         [HttpPost("login")]
         public async Task<IActionResult>Login(LoginDto dto)
         {
-            try
-            {
+           
                 var result = await _service.Login(dto);
                 return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            
         }
     }
 }
