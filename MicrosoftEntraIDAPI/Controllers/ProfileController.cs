@@ -4,23 +4,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MicrosoftEntraIDAPI.Controllers
 {
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "AzureAd")]
     [Route("api/[controller]")]
     [ApiController]
     public class ProfileController : ControllerBase
     {
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Profile()
         {
             return Ok(new
             {
                 Name = User.Identity?.Name,
-                Claims = User.Claims.Select(c => new
-                {
-                    c.Type,
-                    c.Value
-                }),
-                 Message = "Microsoft Entra Authentication Success"
+                Email = User.Claims.FirstOrDefault(c =>
+                    c.Type.Contains("preferred_username"))?.Value
             });
         }
     }
